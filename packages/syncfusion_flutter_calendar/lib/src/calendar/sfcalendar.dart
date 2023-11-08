@@ -5499,7 +5499,7 @@ class _SfCalendarState extends State<SfCalendar>
     /// schedule current date always hold the maximum date compared to
     /// display date and today date
     DateTime scheduleDisplayDate = _scheduleDisplayDate;
-    DateTime scheduleCurrentDate = DateTime.now();
+    DateTime scheduleCurrentDate = _scheduleDisplayDate;//DateTime.now();
     if (scheduleDisplayDate.isAfter(scheduleCurrentDate)) {
       final DateTime tempDate = scheduleDisplayDate;
       scheduleDisplayDate = scheduleCurrentDate;
@@ -6138,7 +6138,9 @@ class _SfCalendarState extends State<SfCalendar>
                       appointmentViewTopPadding,
                       isRTL ? viewPadding : 0,
                       appointmentViewTopPadding),
-                  child: AgendaViewLayout(
+                  child:
+                  eventsCount == 0 ? null :
+                  AgendaViewLayout(
                       null,
                       widget.scheduleViewSettings,
                       currentDate,
@@ -6157,7 +6159,7 @@ class _SfCalendarState extends State<SfCalendar>
                       _minWidth - viewPadding,
                       panelHeight,
                       widget.monthViewSettings.agendaStyle.placeholderTextStyle,
-                      widget),
+                      widget) ,
                 )),
             onTapUp: (TapUpDetails details) {
               _removeDatePicker();

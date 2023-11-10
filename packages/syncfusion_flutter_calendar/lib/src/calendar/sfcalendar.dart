@@ -3234,8 +3234,11 @@ class _SfCalendarState extends State<SfCalendar>
     /// display date and today date.
     /// schedule current date always hold the maximum date compared to
     /// display date and today date
+    ///
+
     DateTime scheduleDisplayDate = _scheduleDisplayDate;
-    DateTime scheduleCurrentDate = DateTime.now();
+    //Eason modify
+    DateTime scheduleCurrentDate = _scheduleDisplayDate;//DateTime.now();
     if (scheduleDisplayDate.isAfter(scheduleCurrentDate)) {
       final DateTime tempDate = scheduleDisplayDate;
       scheduleDisplayDate = scheduleCurrentDate;
@@ -5498,7 +5501,10 @@ class _SfCalendarState extends State<SfCalendar>
     /// display date and today date.
     /// schedule current date always hold the maximum date compared to
     /// display date and today date
+    ///
+
     DateTime scheduleDisplayDate = _scheduleDisplayDate;
+    // Eason modify
     DateTime scheduleCurrentDate = _scheduleDisplayDate;//DateTime.now();
     if (scheduleDisplayDate.isAfter(scheduleCurrentDate)) {
       final DateTime tempDate = scheduleDisplayDate;
@@ -5965,6 +5971,12 @@ class _SfCalendarState extends State<SfCalendar>
     /// Generate views on week days that have appointments.
     for (int i = 0; i < dateAppointmentKeys.length; i++) {
       final DateTime currentDate = dateAppointmentKeys[i];
+
+      //Eason modify
+      if(_selectedDate != null && currentDate.day != _selectedDate!.day) {
+        continue;
+      }
+      //
       final List<CalendarAppointment> currentAppointments =
           dateAppointments[currentDate]!;
       final int eventsCount = currentAppointments.length;
@@ -6115,7 +6127,8 @@ class _SfCalendarState extends State<SfCalendar>
           },
           child: GestureDetector(
             child: _ScheduleAppointmentView(
-                header: CustomPaint(
+                header:
+                CustomPaint(
                     painter: _AgendaDateTimePainter(
                         currentDate,
                         null,
@@ -6684,7 +6697,8 @@ class _SfCalendarState extends State<SfCalendar>
 
     final DateTime scheduleDisplayDate = DateTimeHelper.getDateTimeValue(
         getValidDate(widget.minDate, widget.maxDate, _scheduleDisplayDate));
-    final DateTime scheduleCurrentDate = DateTime.now();
+    //Eason modify
+    final DateTime scheduleCurrentDate = scheduleDisplayDate;//DateTime.now();
     final DateTime currentMaxDate =
         scheduleDisplayDate.isAfter(scheduleCurrentDate)
             ? scheduleDisplayDate
@@ -7001,9 +7015,11 @@ class _SfCalendarState extends State<SfCalendar>
     /// day of week as sunday then May 23, 2020 as shown, calculate the
     /// in between space between the May 23 to May 28 and assign the value to
     /// scroll controller initial scroll position
+
     if (_nextDates.isNotEmpty &&
         _agendaScrollController!.initialScrollOffset == 0 &&
         !_agendaScrollController!.hasClients) {
+
       final DateTime viewStartDate = _nextDates[0];
       final DateTime viewEndDate =
           DateTimeHelper.getDateTimeValue(addDays(viewStartDate, 6));
@@ -7053,6 +7069,7 @@ class _SfCalendarState extends State<SfCalendar>
               allDayAppointmentHeight);
           visibleStartDate = DateTimeHelper.getDateTimeValue(
               addDays(visibleStartDate, DateTime.daysPerWeek));
+
         }
 
         if (initialScrollPosition != 0) {
@@ -7064,62 +7081,72 @@ class _SfCalendarState extends State<SfCalendar>
       }
     }
 
+    WidgetsBinding.instance.addPostFrameCallback((_) => {
+      if (_agendaScrollController!.hasClients) {
+        _agendaScrollController!.animateTo(
+          _agendaScrollController!.position.minScrollExtent,
+          duration: Duration(milliseconds: 300), // 滾動到底部所需時間
+          curve: Curves.easeIn, // 滾動動畫曲線
+        )
+      }
+    });
+
     return RawKeyboardListener(
       focusNode: _focusNode,
       onKey: _onKeyDown,
       child: Stack(children: <Widget>[
+        // Positioned(
+        //   top: 0,
+        //   right: 0,
+        //   left: 0,
+        //   height: widget.headerHeight,
+        //   child: GestureDetector(
+        //     child: Container(
+        //         color: widget.headerStyle.backgroundColor ??
+        //             _calendarTheme.headerBackgroundColor,
+        //         child: _CalendarHeaderView(
+        //             _currentViewVisibleDates,
+        //             widget.headerStyle,
+        //             null,
+        //             _view,
+        //             widget.monthViewSettings.numberOfWeeksInView,
+        //             _calendarTheme,
+        //             isRTL,
+        //             _locale,
+        //             widget.showNavigationArrow,
+        //             _controller,
+        //             widget.maxDate,
+        //             widget.minDate,
+        //             _minWidth,
+        //             widget.headerHeight,
+        //             widget.timeSlotViewSettings.nonWorkingDays,
+        //             widget.monthViewSettings.navigationDirection,
+        //             widget.showDatePickerButton,
+        //             widget.showTodayButton,
+        //             _showHeader,
+        //             widget.allowedViews,
+        //             widget.allowViewNavigation,
+        //             _localizations,
+        //             _removeDatePicker,
+        //             _headerUpdateNotifier,
+        //             _viewChangeNotifier,
+        //             _handleOnTapForHeader,
+        //             _handleOnLongPressForHeader,
+        //             widget.todayHighlightColor,
+        //             _textScaleFactor,
+        //             _isMobilePlatform,
+        //             widget.headerDateFormat,
+        //             true,
+        //             widget.todayTextStyle,
+        //             widget.showWeekNumber,
+        //             widget.weekNumberStyle,
+        //             _timelineMonthWeekNumberNotifier,
+        //             widget.cellBorderColor,
+        //             widget.timeSlotViewSettings.numberOfDaysInView)),
+        //   ),
+        // ),
         Positioned(
-          top: 0,
-          right: 0,
-          left: 0,
-          height: widget.headerHeight,
-          child: GestureDetector(
-            child: Container(
-                color: widget.headerStyle.backgroundColor ??
-                    _calendarTheme.headerBackgroundColor,
-                child: _CalendarHeaderView(
-                    _currentViewVisibleDates,
-                    widget.headerStyle,
-                    null,
-                    _view,
-                    widget.monthViewSettings.numberOfWeeksInView,
-                    _calendarTheme,
-                    isRTL,
-                    _locale,
-                    widget.showNavigationArrow,
-                    _controller,
-                    widget.maxDate,
-                    widget.minDate,
-                    _minWidth,
-                    widget.headerHeight,
-                    widget.timeSlotViewSettings.nonWorkingDays,
-                    widget.monthViewSettings.navigationDirection,
-                    widget.showDatePickerButton,
-                    widget.showTodayButton,
-                    _showHeader,
-                    widget.allowedViews,
-                    widget.allowViewNavigation,
-                    _localizations,
-                    _removeDatePicker,
-                    _headerUpdateNotifier,
-                    _viewChangeNotifier,
-                    _handleOnTapForHeader,
-                    _handleOnLongPressForHeader,
-                    widget.todayHighlightColor,
-                    _textScaleFactor,
-                    _isMobilePlatform,
-                    widget.headerDateFormat,
-                    true,
-                    widget.todayTextStyle,
-                    widget.showWeekNumber,
-                    widget.weekNumberStyle,
-                    _timelineMonthWeekNumberNotifier,
-                    widget.cellBorderColor,
-                    widget.timeSlotViewSettings.numberOfDaysInView)),
-          ),
-        ),
-        Positioned(
-            top: widget.headerHeight,
+            top: 0,//widget.headerHeight,
             left: 0,
             right: 0,
             height: height,
@@ -7156,7 +7183,7 @@ class _SfCalendarState extends State<SfCalendar>
                     ),
                   ],
                 ))),
-        _addDatePicker(widget.headerHeight, isRTL),
+        //_addDatePicker(widget.headerHeight, isRTL),
         _getCalendarViewPopup(),
       ]),
     );

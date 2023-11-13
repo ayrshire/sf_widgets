@@ -7016,80 +7016,80 @@ class _SfCalendarState extends State<SfCalendar>
     /// in between space between the May 23 to May 28 and assign the value to
     /// scroll controller initial scroll position
 
-    if (_nextDates.isNotEmpty &&
-        _agendaScrollController!.initialScrollOffset == 0 &&
-        !_agendaScrollController!.hasClients) {
+    // if (_nextDates.isNotEmpty &&
+    //     _agendaScrollController!.initialScrollOffset == 0 &&
+    //     !_agendaScrollController!.hasClients) {
+    //
+    //   final DateTime viewStartDate = _nextDates[0];
+    //   final DateTime viewEndDate =
+    //       DateTimeHelper.getDateTimeValue(addDays(viewStartDate, 6));
+    //   if (viewStartDate.isBefore(scheduleDisplayDate) &&
+    //       !isSameDate(viewStartDate, scheduleDisplayDate) &&
+    //       isSameOrBeforeDate(viewEndDate, scheduleDisplayDate)) {
+    //     final DateTime viewEndDate =
+    //         DateTimeHelper.getDateTimeValue(addDays(scheduleDisplayDate, -1));
+    //
+    //     final double initialScrollPosition = _getInitialScrollPosition(
+    //         viewStartDate,
+    //         viewEndDate,
+    //         scheduleCurrentDate,
+    //         appointmentViewHeight,
+    //         allDayAppointmentHeight);
+    //     if (initialScrollPosition != 0) {
+    //       _agendaScrollController?.removeListener(_handleScheduleViewScrolled);
+    //       _agendaScrollController =
+    //           ScrollController(initialScrollOffset: initialScrollPosition)
+    //             ..addListener(_handleScheduleViewScrolled);
+    //     }
+    //   } else if (viewStartDate.isBefore(scheduleDisplayDate)) {
+    //     DateTime visibleStartDate = viewStartDate;
+    //     double initialScrollPosition = 0;
+    //     while (visibleStartDate.isBefore(scheduleDisplayDate) &&
+    //         !isSameDate(visibleStartDate, scheduleDisplayDate)) {
+    //       final DateTime viewEndDate =
+    //           DateTimeHelper.getDateTimeValue(addDays(visibleStartDate, 6));
+    //       final DateTime appStartDate =
+    //           isSameOrAfterDate(_minDate, visibleStartDate)
+    //               ? visibleStartDate
+    //               : _minDate!;
+    //       DateTime appEndDate = isSameOrBeforeDate(_maxDate, viewEndDate)
+    //           ? viewEndDate
+    //           : _maxDate!;
+    //       if (appEndDate.isAfter(scheduleDisplayDate) ||
+    //           isSameDate(appEndDate, scheduleDisplayDate)) {
+    //         appEndDate = DateTimeHelper.getDateTimeValue(
+    //             addDays(scheduleDisplayDate, -1));
+    //       }
+    //
+    //       initialScrollPosition += _getInitialScrollPosition(
+    //           appStartDate,
+    //           appEndDate,
+    //           scheduleCurrentDate,
+    //           appointmentViewHeight,
+    //           allDayAppointmentHeight);
+    //       visibleStartDate = DateTimeHelper.getDateTimeValue(
+    //           addDays(visibleStartDate, DateTime.daysPerWeek));
+    //
+    //     }
+    //
+    //     if (initialScrollPosition != 0) {
+    //       _agendaScrollController?.removeListener(_handleScheduleViewScrolled);
+    //       _agendaScrollController =
+    //           ScrollController(initialScrollOffset: initialScrollPosition)
+    //             ..addListener(_handleScheduleViewScrolled);
+    //     }
+    //   }
+    // }
 
-      final DateTime viewStartDate = _nextDates[0];
-      final DateTime viewEndDate =
-          DateTimeHelper.getDateTimeValue(addDays(viewStartDate, 6));
-      if (viewStartDate.isBefore(scheduleDisplayDate) &&
-          !isSameDate(viewStartDate, scheduleDisplayDate) &&
-          isSameOrBeforeDate(viewEndDate, scheduleDisplayDate)) {
-        final DateTime viewEndDate =
-            DateTimeHelper.getDateTimeValue(addDays(scheduleDisplayDate, -1));
-
-        final double initialScrollPosition = _getInitialScrollPosition(
-            viewStartDate,
-            viewEndDate,
-            scheduleCurrentDate,
-            appointmentViewHeight,
-            allDayAppointmentHeight);
-        if (initialScrollPosition != 0) {
-          _agendaScrollController?.removeListener(_handleScheduleViewScrolled);
-          _agendaScrollController =
-              ScrollController(initialScrollOffset: initialScrollPosition)
-                ..addListener(_handleScheduleViewScrolled);
-        }
-      } else if (viewStartDate.isBefore(scheduleDisplayDate)) {
-        DateTime visibleStartDate = viewStartDate;
-        double initialScrollPosition = 0;
-        while (visibleStartDate.isBefore(scheduleDisplayDate) &&
-            !isSameDate(visibleStartDate, scheduleDisplayDate)) {
-          final DateTime viewEndDate =
-              DateTimeHelper.getDateTimeValue(addDays(visibleStartDate, 6));
-          final DateTime appStartDate =
-              isSameOrAfterDate(_minDate, visibleStartDate)
-                  ? visibleStartDate
-                  : _minDate!;
-          DateTime appEndDate = isSameOrBeforeDate(_maxDate, viewEndDate)
-              ? viewEndDate
-              : _maxDate!;
-          if (appEndDate.isAfter(scheduleDisplayDate) ||
-              isSameDate(appEndDate, scheduleDisplayDate)) {
-            appEndDate = DateTimeHelper.getDateTimeValue(
-                addDays(scheduleDisplayDate, -1));
-          }
-
-          initialScrollPosition += _getInitialScrollPosition(
-              appStartDate,
-              appEndDate,
-              scheduleCurrentDate,
-              appointmentViewHeight,
-              allDayAppointmentHeight);
-          visibleStartDate = DateTimeHelper.getDateTimeValue(
-              addDays(visibleStartDate, DateTime.daysPerWeek));
-
-        }
-
-        if (initialScrollPosition != 0) {
-          _agendaScrollController?.removeListener(_handleScheduleViewScrolled);
-          _agendaScrollController =
-              ScrollController(initialScrollOffset: initialScrollPosition)
-                ..addListener(_handleScheduleViewScrolled);
-        }
-      }
-    }
-
-    WidgetsBinding.instance.addPostFrameCallback((_) => {
-      if (_agendaScrollController!.hasClients) {
-        _agendaScrollController!.animateTo(
-          _agendaScrollController!.position.minScrollExtent,
-          duration: Duration(milliseconds: 300), // 滾動到底部所需時間
-          curve: Curves.easeIn, // 滾動動畫曲線
-        )
-      }
-    });
+    // WidgetsBinding.instance.addPostFrameCallback((_) => {
+    //   if (_agendaScrollController!.hasClients) {
+    //     _agendaScrollController!.animateTo(
+    //       _agendaScrollController!.position.minScrollExtent,
+    //       duration: Duration(milliseconds: 300), // 滾動到底部所需時間
+    //       curve: Curves.easeIn, // 滾動動畫曲線
+    //     )
+    //   }
+    // });
 
     return RawKeyboardListener(
       focusNode: _focusNode,

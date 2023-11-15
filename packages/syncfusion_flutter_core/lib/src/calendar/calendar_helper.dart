@@ -185,7 +185,7 @@ dynamic getFirstDayOfWeekDate(
 
   const int numberOfWeekDays = 7;
   dynamic currentDate = date;
-  if (visibleDatesCount == 42) {
+  if (visibleDatesCount == 42 || visibleDatesCount == 35) {
     if (currentDate is HijriDateTime) {
       currentDate = HijriDateTime(currentDate.year, currentDate.month, 1);
     } else {

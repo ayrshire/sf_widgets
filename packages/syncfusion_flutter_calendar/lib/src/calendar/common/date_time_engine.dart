@@ -61,7 +61,7 @@ class DateTimeHelper {
     switch (calendarView) {
       case CalendarView.month:
         {
-          return numberOfWeeksInView == 6
+          return numberOfWeeksInView == 6 || numberOfWeeksInView == 5
               ? DateTimeHelper.getDateTimeValue(getNextMonthDate(date))
               : DateTimeHelper.getDateTimeValue(
                   addDays(date, numberOfWeeksInView * DateTime.daysPerWeek));
@@ -111,7 +111,7 @@ class DateTimeHelper {
     switch (calendarView) {
       case CalendarView.month:
         {
-          return numberOfWeeksInView == 6
+          return numberOfWeeksInView == 6 || numberOfWeeksInView == 5
               ? DateTimeHelper.getDateTimeValue(getPreviousMonthDate(date))
               : DateTimeHelper.getDateTimeValue(
                   addDays(date, -numberOfWeeksInView * DateTime.daysPerWeek));
@@ -229,7 +229,7 @@ class DateTimeHelper {
     switch (calendarView) {
       case CalendarView.month:
         {
-          if (numberOfWeeksInView != 6) {
+          if (numberOfWeeksInView != 6 || numberOfWeeksInView != 5) {
             final DateTime prevViewDate =
                 DateTimeHelper.getDateTimeValue(addDays(visibleDates[0], -1));
             if (!isSameOrAfterDate(minDate, prevViewDate)) {
@@ -303,7 +303,7 @@ class DateTimeHelper {
     switch (calendarView) {
       case CalendarView.month:
         {
-          if (numberOfWeeksInView != 6) {
+          if (numberOfWeeksInView != 6 || numberOfWeeksInView != 5) {
             final DateTime nextViewDate = DateTimeHelper.getDateTimeValue(
                 addDays(visibleDates[visibleDates.length - 1], 1));
             if (!isSameOrBeforeDate(maxDate, nextViewDate)) {

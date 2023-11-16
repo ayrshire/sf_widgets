@@ -4322,22 +4322,24 @@ class _SfCalendarState extends State<SfCalendar>
         }
       case CalendarView.month:
         {
+          //print("qqqqq 1111111 ${_currentDate.toIso8601String()} ${_controller.displayDate!.toIso8601String()}");
           if (isSameDate(_currentDate, _controller.displayDate) ||
               (isDateWithInDateRange(
                       _currentViewVisibleDates[0],
                       _currentViewVisibleDates[
                           _currentViewVisibleDates.length - 1],
                       _controller.displayDate) &&
-                  (widget.monthViewSettings.numberOfWeeksInView != 6 ||
-                      (widget.monthViewSettings.numberOfWeeksInView == 6 &&
+                  ((widget.monthViewSettings.numberOfWeeksInView != 6 && widget.monthViewSettings.numberOfWeeksInView != 5)  ||
+                      ((widget.monthViewSettings.numberOfWeeksInView == 6 || widget.monthViewSettings.numberOfWeeksInView == 5) &&
                           _controller.displayDate!.month ==
                               _currentViewVisibleDates[
                                       _currentViewVisibleDates.length ~/ 2]
                                   .month)))) {
+            //print("qqqqq 1111111 ${_currentDate.toIso8601String()} ${_controller.displayDate!.toIso8601String()}");
             _currentDate = _controller.displayDate!;
             return;
           }
-
+          //print("qqqqq 2222222");
           _fadeInController!.reset();
           _fadeInController!.forward();
           setState(() {
@@ -4394,7 +4396,7 @@ class _SfCalendarState extends State<SfCalendar>
     _currentViewVisibleDates = getVisibleDates(_currentDate, nonWorkingDays,
             widget.firstDayOfWeek, visibleDatesCount)
         .cast();
-
+    //print("22222 visible dates $_currentViewVisibleDates, $_currentDate, $nonWorkingDays, $visibleDatesCount");
     if (_view == CalendarView.timelineMonth) {
       _currentViewVisibleDates =
           DateTimeHelper.getCurrentMonthDates(_currentViewVisibleDates);

@@ -2606,6 +2606,7 @@ class _CustomCalendarScrollViewState extends State<CustomCalendarScrollView>
     _visibleDates = getVisibleDates(currentDate, nonWorkingDays,
             widget.calendar.firstDayOfWeek, visibleDatesCount)
         .cast();
+    //print("11111 visible dates $_visibleDates, $currentDate, $nonWorkingDays, $visibleDatesCount");
     _previousViewVisibleDates = getVisibleDates(
             widget.isRTL ? nextDate : prevDate,
             nonWorkingDays,
@@ -2654,7 +2655,7 @@ class _CustomCalendarScrollViewState extends State<CustomCalendarScrollView>
         nonWorkingDays);
 
     if (widget.view == CalendarView.month &&
-        widget.calendar.monthViewSettings.numberOfWeeksInView == 6) {
+        (widget.calendar.monthViewSettings.numberOfWeeksInView == 6 || widget.calendar.monthViewSettings.numberOfWeeksInView == 5)) {
       currentViewDate = _currentViewVisibleDates[
           (_currentViewVisibleDates.length / 2).truncate()];
     }
@@ -2705,7 +2706,7 @@ class _CustomCalendarScrollViewState extends State<CustomCalendarScrollView>
         nonWorkingDays);
 
     if (widget.view == CalendarView.month &&
-        widget.calendar.monthViewSettings.numberOfWeeksInView == 6) {
+        (widget.calendar.monthViewSettings.numberOfWeeksInView == 6 || widget.calendar.monthViewSettings.numberOfWeeksInView == 5)) {
       currentViewDate = _currentViewVisibleDates[
           (_currentViewVisibleDates.length / 2).truncate()];
     }
@@ -3401,7 +3402,7 @@ class _CustomCalendarScrollViewState extends State<CustomCalendarScrollView>
     _updateCalendarStateDetails.currentViewVisibleDates =
         _currentViewVisibleDates;
     if (widget.view == CalendarView.month &&
-        widget.calendar.monthViewSettings.numberOfWeeksInView == 6) {
+        (widget.calendar.monthViewSettings.numberOfWeeksInView == 6 || widget.calendar.monthViewSettings.numberOfWeeksInView == 5)) {
       final DateTime currentMonthDate =
           _currentViewVisibleDates[_currentViewVisibleDates.length ~/ 2];
       _updateCalendarStateDetails.currentDate =
@@ -7115,7 +7116,7 @@ class _CalendarViewState extends State<_CalendarView>
       /// Handle the appointment resize after and before the current month
       /// dates when hide trailing and leading dates enabled.
       if (!widget.calendar.monthViewSettings.showTrailingAndLeadingDates &&
-          widget.calendar.monthViewSettings.numberOfWeeksInView == 6) {
+          (widget.calendar.monthViewSettings.numberOfWeeksInView == 6 || widget.calendar.monthViewSettings.numberOfWeeksInView == 5)) {
         final DateTime currentMonthDate =
             widget.visibleDates[widget.visibleDates.length ~/ 2];
         final int startIndex = DateTimeHelper.getVisibleDateIndex(

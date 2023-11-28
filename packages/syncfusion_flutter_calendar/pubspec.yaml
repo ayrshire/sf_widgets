@@ -37,12 +37,12 @@ dependencies:
     git:
         url: https://github.com/ayrshire/sf_widgets.git
         path: packages/syncfusion_flutter_core
-        ref: master
+        ref: my_sf_calendar
   syncfusion_flutter_datepicker:
     git:
       url: https://github.com/ayrshire/sf_widgets.git
       path: packages/syncfusion_flutter_datepicker
-      ref: master
+      ref: my_sf_calendar
 #  syncfusion_flutter_datepicker: ^23.1.36
 
 
